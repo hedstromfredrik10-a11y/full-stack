@@ -15,14 +15,6 @@ const ListJobsComponent = () => {
             });
     }, []); 
 
-    // useEffect(() => {
-    //     listJobs().then((response) => {
-    //         setJobs(response.data);
-    //     }).catch(error => {
-    //         console.error(error);
-    //     })
-    // })
-
     return (
         <div className='container'>
             <h2 className='text-center'>List of jobs</h2>

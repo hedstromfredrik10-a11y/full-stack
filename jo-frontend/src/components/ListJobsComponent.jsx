@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { listJobs } from '../services/JobService'
+import { useNavigate } from 'react-router-dom'
 
 const ListJobsComponent = () => {
 
     const [jobs, setJobs] = useState([])
+
+    const navigator = useNavigate();
 
     useEffect(() => {
         listJobs()
@@ -13,11 +16,21 @@ const ListJobsComponent = () => {
             .catch(error => {
                 console.error(error);
             });
-    }, []); 
+    }, []);
+
+    function addNewJob() {
+        navigator('/insertJob')
+    }
+
+    function deleteJob() {
+        navigator('/deletejob')
+    }
 
     return (
         <div className='container'>
             <h2 className='text-center'>List of jobs</h2>
+            <button className="btn btn-outline-dark" onClick={addNewJob}>INSERT A NEW JOB</button>
+            <button className="btn btn-outline-dark" onClick={deleteJob}>DELETE JOB</button>
             <table className='table table-striped-columns table-bordered'>
                 <thead>
                     <tr>
@@ -27,7 +40,7 @@ const ListJobsComponent = () => {
                         <th>Ansökningsstatus</th>
                         <th>Jobansökningslänk</th>
                         <th>Telefonnummer</th>
-                        <th>Kontaktad</th>
+                        {/* <th>Kontaktad</th> */}
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +53,7 @@ const ListJobsComponent = () => {
                                 <td>{job.jobStatus}</td>
                                 <td>{job.jobListingLink}</td>
                                 <td>{job.companyPhoneNumber}</td>
-                                <td>{job.contacted ? "Ja" : "Nej"}</td>
+                                {/* <td>{job.contacted ? "Ja" : "Nej"}</td> */}
                             </tr>
                         )
                     }

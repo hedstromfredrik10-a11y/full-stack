@@ -2,6 +2,25 @@ h2 {
   font-family: 'Verdana', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* .page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+} */
+
+.table-container {
+  max-height: 650px;
+  /* flex: 1; */
+  overflow-y: auto;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

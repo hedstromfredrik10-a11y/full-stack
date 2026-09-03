@@ -19,8 +19,9 @@ function App() {
           <Route path='/getalljobs' element={<ListJobsComponent />}></Route>
           {/* // http://localhost:3000/insertJob */}
           <Route path='insertJob' element={<JobsComponent />}></Route>
-          {/* // http://localhost:3000/insertJob */}
-          <Route path='deletejob' element={<DeleteJobComponent />}></Route>
+          {/* // http://localhost:3000/updatejobstatus */}
+          <Route path='/updatejobstatus/:id' element={<JobsComponent />}></Route>
+
         </Routes>
         <FooterComponent />
       </BrowserRouter>

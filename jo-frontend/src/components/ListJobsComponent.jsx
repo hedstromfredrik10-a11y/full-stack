@@ -26,6 +26,10 @@ const ListJobsComponent = () => {
         navigator('/deletejob')
     }
 
+    function updateJobStatus(id) {
+        navigator(`/updatejobstatus/${id}`)
+    }
+
     return (
         <div className='container page'>
             <br/>
@@ -57,6 +61,7 @@ const ListJobsComponent = () => {
                             <th>Ansökningsstatus</th>
                             <th>Jobansökningslänk</th>
                             <th>Telefonnummer</th>
+                            <th>Åtgärder</th>
                             {/* <th>Kontaktad</th> */}
                         </tr>
                     </thead>
@@ -70,6 +75,9 @@ const ListJobsComponent = () => {
                                     <td>{job.jobStatus}</td>
                                     <td>{job.jobListingLink}</td>
                                     <td>{job.companyPhoneNumber}</td>
+                                    <td>
+                                        <button className='btn btn-info' onClick={() => updateJobStatus(job.id)}>Uppdatera jobbstatus</button>
+                                    </td>
                                     {/* <td>{job.contacted ? "Ja" : "Nej"}</td> */}
                                 </tr>
                             )

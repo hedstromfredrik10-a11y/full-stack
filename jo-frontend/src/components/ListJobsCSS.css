@@ -1,0 +1,19 @@
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.mb-3 {
+    display: grid;
+}
+
+.me-2 {
+    background-color: aliceblue;
+}
+
+.ListOfJobs {
+    display: grid;
+    place-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: aliceblue;
+}

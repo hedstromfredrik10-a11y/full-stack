@@ -1,5 +1,4 @@
 import './App.css'
-import DeleteJobComponent from './components/DeleteJobComponent'
 import FooterComponent from './components/FooterComponent'
 import HeaderComponent from './components/HeaderComponent'
 import JobsComponent from './components/JobsComponent'
@@ -21,7 +20,6 @@ function App() {
           <Route path='insertJob' element={<JobsComponent />}></Route>
           {/* // http://localhost:3000/updatejobstatus */}
           <Route path='/updatejobstatus/:id' element={<JobsComponent />}></Route>
-
         </Routes>
         <FooterComponent />
       </BrowserRouter>

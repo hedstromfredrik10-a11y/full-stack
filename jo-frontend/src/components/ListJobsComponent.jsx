@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { listJobs } from '../services/JobService'
+import { listJobs, deleteJob } from '../services/JobService'
 import { useNavigate } from 'react-router-dom'
+import './ListJobsCSS.css';
 
 const ListJobsComponent = () => {
 
@@ -22,8 +23,20 @@ const ListJobsComponent = () => {
         navigator('/insertJob')
     }
 
-    function deleteJob() {
-        navigator('/deletejob')
+    function deleteJobById(id) {
+        if (!window.confirm("Är du säker på att du vill radera detta jobb? Åtgärden går inte att ångra")) {
+            return;
+        }
+
+        deleteJob(id)
+            .then((response) => {
+                console.log(response.data);
+
+                setJobs(jobs.filter(job => job.id !== id));
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     function updateJobStatus(id) {
@@ -32,58 +45,57 @@ const ListJobsComponent = () => {
 
     return (
         <div className='container page'>
-            <br/>
-            <h2 className="text-center">List of jobs</h2>
-
-            <div className="mb-3">
-                <button
-                    className="btn btn-outline-dark me-2"
-                    onClick={addNewJob}
-                >
-                    INSERT A NEW JOB
-                </button>
-
-                <button
-                    className="btn btn-outline-dark"
-                    onClick={deleteJob}
-                >
-                    DELETE JOB
-                </button>
-            </div>
-
+            <br />
+            <h2 className="ListOfJobs">Lista av jobb</h2>
             <div className='table-container'>
-                <table className='table table-striped-columns table-bordered'>
+                <table className='table table-striped table-bordered'>
                     <thead>
                         <tr>
-                            <th>id</th>
                             <th>Företag</th>
                             <th>Ansökningsdatum</th>
                             <th>Ansökningsstatus</th>
                             <th>Jobansökningslänk</th>
                             <th>Telefonnummer</th>
                             <th>Åtgärder</th>
-                            {/* <th>Kontaktad</th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {
                             jobs.map(job =>
                                 <tr key={job.id}>
-                                    <td>{job.id}</td>
                                     <td>{job.company}</td>
                                     <td>{job.applicationDate}</td>
                                     <td>{job.jobStatus}</td>
                                     <td>{job.jobListingLink}</td>
                                     <td>{job.companyPhoneNumber}</td>
                                     <td>
-                                        <button className='btn btn-info' onClick={() => updateJobStatus(job.id)}>Uppdatera jobbstatus</button>
+                                        <div className="buttons">
+                                            <button
+                                                className='btn btn-secondary'
+                                                onClick={() => updateJobStatus(job.id)}>Uppdatera jobbstatus</button>
+                                            <button
+                                                className='btn btn-secondary'
+                                                onClick={() => deleteJobById(job.id)}>Ta bort jobb</button>
+                                            <button
+                                                className='btn btn-secondary'
+                                                onClick={() => deleteJobById(job.id)}>Uppdatera jobbtitel</button>
+                                        </div>
                                     </td>
-                                    {/* <td>{job.contacted ? "Ja" : "Nej"}</td> */}
+
                                 </tr>
                             )
                         }
                     </tbody>
                 </table>
+            </div>
+
+            <div className="mb-3">
+                <button
+                    className="btn btn-outline-dark me-2"
+                    onClick={addNewJob}
+                >
+                    Lägg till ett nytt jobb 💰
+                </button>
             </div>
         </div>
     )

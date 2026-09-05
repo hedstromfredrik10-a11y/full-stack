@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createJob, updateJobStatus } from '../services/JobService'
+import { createJob, updateJobStatus, updateJobTitle } from '../services/JobService'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const JobsComponent = () => {
@@ -28,6 +28,7 @@ const JobsComponent = () => {
             updateJobStatus(id, jobStatus)
                 .then((response) => {
                     console.log(response.data);
+                    navigator('/getalljobs')
                 })
                 .catch(error => {
                     console.error(error);
@@ -94,7 +95,7 @@ const JobsComponent = () => {
                 <div className='card col-md-6 offset-md-3'>
 
                     <h2 className='text-center'>
-                        {id ? 'Update job status' : 'Add a new Job'}
+                        {id ? 'Uppdatera jobbstatus' : 'Lägg till ett nytt jobb'}
                     </h2>
 
                     <div className='card-body'>

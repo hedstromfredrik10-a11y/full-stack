@@ -29,4 +29,18 @@ export const updateJobStatus = (id, jobStatus) => {
             }
         }
     )
-} 
+}
+
+export const updateJobTitle = (id, Name) => {
+    return axios.post(
+        REST_API_BASE_URL + "/updatejobtitle",
+        null,
+        {
+            params: {
+                Id: id,
+                Name: Name
+            }
+        }
+    )
+}
+

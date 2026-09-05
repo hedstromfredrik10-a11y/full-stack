@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { listJobs, deleteJob } from '../services/JobService'
+import { listJobs, deleteJob, updateJobTitle } from '../services/JobService'
 import { useNavigate } from 'react-router-dom'
 import './ListJobsCSS.css';
 
@@ -43,6 +43,14 @@ const ListJobsComponent = () => {
         navigator(`/updatejobstatus/${id}`)
     }
 
+    function updateJobTitle(id) {
+        navigator(`/updatejobtitle/${id}`)
+    }
+
+    function seeListOfJobsOverdue() {
+        navigator("/overduejobs/getalljobsoverdue")
+    }
+
     return (
         <div className='container page'>
             <br />
@@ -78,7 +86,7 @@ const ListJobsComponent = () => {
                                                 onClick={() => deleteJobById(job.id)}>Ta bort jobb</button>
                                             <button
                                                 className='btn btn-secondary'
-                                                onClick={() => deleteJobById(job.id)}>Uppdatera jobbtitel</button>
+                                                onClick={() => updateJobTitle(job.id)}>Uppdatera jobbtitel</button>
                                         </div>
                                     </td>
 
@@ -90,11 +98,19 @@ const ListJobsComponent = () => {
             </div>
 
             <div className="mb-3">
+                <br />
                 <button
                     className="btn btn-outline-dark me-2"
                     onClick={addNewJob}
                 >
                     Lägg till ett nytt jobb 💰
+                </button>
+                <br />
+                <button
+                    className='btn btn-outline-dark me-2'
+                    onClick={seeListOfJobsOverdue}
+                >
+                    Se lista av företag som ska kontaktas
                 </button>
             </div>
         </div>

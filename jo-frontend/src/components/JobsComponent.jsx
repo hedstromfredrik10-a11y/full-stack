@@ -224,7 +224,7 @@ const JobsComponent = () => {
                                         </label>
 
                                         <input
-                                            type='number'
+                                            type='tel'
                                             placeholder='Enter company phone number'
                                             name='company phone number'
                                             value={companyPhoneNumber}

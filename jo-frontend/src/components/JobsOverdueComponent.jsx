@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getListOfJobsOverdue } from '../services/JobsOverdueService'
+import { getListOfJobsOverdue, updateContacted } from '../services/JobsOverdueService'
 import './OverdueCSS.css';
+import { useNavigate, useParams } from "react-router-dom";
 
 const JobsOverdueComponent = () => {
 
     const [jobsThatAreOverdue, setJobsOverdue] = useState([])
+
+    const { id } = useParams();
+
+    const navigator = useNavigate();
 
     useEffect(() => {
         getListOfJobsOverdue()
@@ -15,6 +20,10 @@ const JobsOverdueComponent = () => {
                 console.error(error);
             });
     }, []);
+
+    function updateContactedStatus(id) {
+        navigator(`/overduejobs/updateContactedStatus/${id}`)
+    }
 
     return (
         <div className='container'>
@@ -29,6 +38,7 @@ const JobsOverdueComponent = () => {
                             <th>Ansökningsdatum</th>
                             <th>Dagar sedan ansökning</th>
                             <th>Kontaktad</th>
+                            <th>Åtgärder</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +50,13 @@ const JobsOverdueComponent = () => {
                                     <td>{job.applicationDate}</td>
                                     <td>{job.daysOverdue}</td>
                                     <td>{job.contacted ? "Ja" : "Nej"}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-secondary"
+                                            onClick={() => updateContactedStatus(job.id)}>
+                                            Ändra kontakstatus
+                                        </button>
+                                    </td>
                                 </tr>
                             )
                         }

@@ -6,6 +6,7 @@ import ListJobsComponent from './components/ListJobsComponent'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import UpdateCompanyComponent from './components/UpdateCompanyComponent'
 import JobsOverdueComponent from './components/JobsOverdueComponent'
+import UpdateContactedComponent from './components/UpdateContactedComponent'
 
 function App() {
 
@@ -26,8 +27,10 @@ function App() {
           <Route path='/updatejobtitle/:id' element={<UpdateCompanyComponent />}></Route>
           {/* // http://localhost:3000/overduejobs/getalljobsoverdue */}
           <Route path='/overduejobs/getalljobsoverdue' element={<JobsOverdueComponent />}></Route>
+          {/* // http://localhost:3000/overduejobs/updateContactedStatus */}
+          <Route path='/overduejobs/updateContactedStatus/:id' element={<UpdateContactedComponent />}></Route>
         </Routes>
-        <FooterComponent />
+        {/* <FooterComponent /> */}
       </BrowserRouter>
     </>
   )

@@ -11,28 +11,26 @@ import UpdateContactedComponent from './components/UpdateContactedComponent'
 function App() {
 
   return (
-    <>
-      <BrowserRouter>
-        <HeaderComponent />
-        <Routes>
-          {/* // http://localhost:3000 */}
-          <Route path='/' element={<ListJobsComponent />}> </Route>
-          {/* // http://localhost:3000/getalljobs */}
-          <Route path='/getalljobs' element={<ListJobsComponent />}></Route>
-          {/* // http://localhost:3000/insertJob */}
-          <Route path='insertJob' element={<JobsComponent />}></Route>
-          {/* // http://localhost:3000/updatejobstatus */}
-          <Route path='/updatejobstatus/:id' element={<JobsComponent />}></Route>
-          {/* // http://localhost:3000/updatejobtitle */}
-          <Route path='/updatejobtitle/:id' element={<UpdateCompanyComponent />}></Route>
-          {/* // http://localhost:3000/overduejobs/getalljobsoverdue */}
-          <Route path='/overduejobs/getalljobsoverdue' element={<JobsOverdueComponent />}></Route>
-          {/* // http://localhost:3000/overduejobs/updateContactedStatus */}
-          <Route path='/overduejobs/updateContactedStatus/:id' element={<UpdateContactedComponent />}></Route>
-        </Routes>
-        {/* <FooterComponent /> */}
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <HeaderComponent />
+      <Routes>
+        {/* // http://localhost:3000 */}
+        <Route path='/' element={<ListJobsComponent />}> </Route>
+        {/* // http://localhost:3000/getalljobs */}
+        <Route path='/getalljobs' element={<ListJobsComponent />}></Route>
+        {/* // http://localhost:3000/insertJob */}
+        <Route path='insertJob' element={<JobsComponent />}></Route>
+        {/* // http://localhost:3000/updatejobstatus */}
+        <Route path='/updatejobstatus/:id' element={<JobsComponent />}></Route>
+        {/* // http://localhost:3000/updatejobtitle */}
+        <Route path='/updatejobtitle/:id' element={<UpdateCompanyComponent />}></Route>
+        {/* // http://localhost:3000/overduejobs/getalljobsoverdue */}
+        <Route path='/overduejobs/getalljobsoverdue' element={<JobsOverdueComponent />}></Route>
+        {/* // http://localhost:3000/overduejobs/updateContactedStatus */}
+        <Route path='/overduejobs/updateContactedStatus/:id' element={<UpdateContactedComponent />}></Route>
+      </Routes>
+      {/* <FooterComponent /> */}
+    </BrowserRouter>
   )
 }
 

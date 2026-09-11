@@ -22,13 +22,31 @@ const JobsOverdueComponent = () => {
     }, []);
 
     function updateContactedStatus(id) {
-        navigator(`/overduejobs/updateContactedStatus/${id}`)
+        updateContacted(id, true)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        // navigator(`/overduejobs/updateContactedStatus/${id}`)
+    }
+
+    function backToStart() {
+        navigator("/getalljobs")
     }
 
     return (
         <div className='container'>
             <br />
-            <h2 className="ListOfJobsOverdue">Lista av jobb om ska kontaktas</h2>
+            <button
+                className="btn btn-info"
+                onClick={backToStart}>
+                Tillbaka till start
+            </button>
+
+            <h2 className="ListOfJobsOverdue">Lista av företag om ska kontaktas</h2>
             <div className="table-container">
                 <table className="table table-striped table-bordered">
                     <thead>
@@ -63,6 +81,7 @@ const JobsOverdueComponent = () => {
                     </tbody>
 
                 </table>
+
 
 
             </div>

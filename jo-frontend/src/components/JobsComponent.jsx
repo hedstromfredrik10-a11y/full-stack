@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { createJob, updateJobStatus } from '../services/JobService'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createJob, updateJobStatus } from '../services/JobService'
 

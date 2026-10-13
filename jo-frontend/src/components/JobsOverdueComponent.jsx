@@ -80,7 +80,7 @@ const JobsOverdueComponent = () => {
                                         <td>
                                             <button
                                                 className="btn btn-sm btn-soft"
-                                                onClick={() => updateContactedStatus(job.id)}>
+                                                onClick={() => toggleContactedStatus(job.id, job.contacted)}>
                                                 Ändra kontaktstatus
                                             </button>
                                         </td>

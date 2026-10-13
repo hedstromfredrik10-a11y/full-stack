@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { createJob, updateJobStatus } from '../services/JobService'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createJob, updateJobStatus } from '../services/JobService'
 
@@ -89,35 +90,30 @@ const JobsComponent = () => {
     }
 
     return (
+        <div className='container-fluid page page-wide'>
+            <button className='btn btn-link btn-back' onClick={() => navigator('/getalljobs')}>
+                ← Tillbaka till start
+            </button>
 
-        <div className='container'>
+            <div className='surface-card form-card'>
+                <h1 className='form-card-title'>
+                    {id ? 'Uppdatera jobbstatus' : 'Lägg till ett nytt jobb'}
+                </h1>
+                <p className='form-card-subtitle'>
+                    {id ? 'Välj var i processen ansökan befinner sig.' : 'Fyll i uppgifterna om ansökan du har skickat.'}
+                </p>
 
-            <br />
-            <br />
+                <form>
 
-            <div className='row'>
+                    {id ? (
 
-                <div className='card col-md-6 offset-md-3'>
-
-                    <h2 className='text-center'>
-                        {id ? 'Uppdatera jobbstatus' : 'Lägg till ett nytt jobb'}
-                    </h2>
-
-                    <div className='card-body'>
-
-                        <form>
-
-
-                            {id ? (
-
-                                <div className='form-group mb-2'>
-
-                                    <label className='form-label'>
-                                        Job status
-                                    </label>
+                        <div className='mb-3'>
+                            <label className='form-label' htmlFor='jobStatus'>
+                                Job status
+                            </label>
 
                                     <select
-                                        className={`form-control' ${errors.jobStatus ? 'is-invalid' : ''}`}
+                                        className='form-control'
                                         value={jobStatus}
                                         onChange={(e) => setJobStatus(e.target.value)}
                                     >
@@ -144,129 +140,106 @@ const JobsComponent = () => {
 
                                     </select>
 
-                                    {errors.jobStatus &&
-                                        <div className='invalid-feedback'>
-                                            {errors.jobStatus}
-                                        </div>
-                                    }
-
                                 </div>
 
-                            ) : (
+                    ) : (
 
-                                <>
+                        <>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='company'>
+                                    Company
+                                </label>
 
-                                    <div className='form-group mb-2'>
+                                <input
+                                    id='company'
+                                    type='text'
+                                    placeholder='Enter company name'
+                                    name='company'
+                                    value={company}
+                                    className={`form-control ${errors.company ? 'is-invalid' : ''}`}
+                                    onChange={(e) => setCompany(e.target.value)}
+                                />
 
-                                        <label className='form-label'>
-                                            Company
-                                        </label>
-
-                                        <input
-                                            type='text'
-                                            placeholder='Enter company name'
-                                            name='company'
-                                            value={company}
-                                            className={`form-control ${errors.company ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setCompany(e.target.value)}
-                                        />
-
-                                        {errors.company &&
-                                            <div className='invalid-feedback'>
-                                                {errors.company}
-                                            </div>
-                                        }
-
+                                {errors.company &&
+                                    <div className='invalid-feedback'>
+                                        {errors.company}
                                     </div>
+                                }
+                            </div>
 
+                            <div className='row'>
+                                <div className='col-sm-6 mb-3'>
+                                    <label className='form-label' htmlFor='applicationDate'>
+                                        Application date
+                                    </label>
 
-                                    <div className='form-group mb-2'>
+                                    <input
+                                        id='applicationDate'
+                                        type='date'
+                                        placeholder='Enter application date'
+                                        name='application date'
+                                        value={applicationDate}
+                                        className={`form-control ${errors.applicationDate ? 'is-invalid' : ''}`}
+                                        onChange={(e) => setApplicationDate(e.target.value)}
+                                    />
 
-                                        <label className='form-label'>
-                                            Application date
-                                        </label>
+                                    {errors.applicationDate &&
+                                        <div className='invalid-feedback'>
+                                            {errors.applicationDate}
+                                        </div>
+                                    }
+                                </div>
 
-                                        <input
-                                            type='date'
-                                            placeholder='Enter application date'
-                                            name='application date'
-                                            value={applicationDate}
-                                            className={`form-control ${errors.applicationDate ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setApplicationDate(e.target.value)}
-                                        />
+                                <div className='col-sm-6 mb-3'>
+                                    <label className='form-label' htmlFor='companyPhoneNumber'>
+                                        Company phone number
+                                    </label>
 
-                                        {errors.applicationDate &&
-                                            <div className='invalid-feedback'>
-                                                {errors.applicationDate}
-                                            </div>
-                                        }
+                                    <input
+                                        id='companyPhoneNumber'
+                                        type='tel'
+                                        placeholder='Enter company phone number'
+                                        name='company phone number'
+                                        value={companyPhoneNumber}
+                                        className='form-control'
+                                        onChange={(e) => setCompanyPhoneNumber(e.target.value)}
+                                    />
+                                </div>
+                            </div>
 
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='jobListingLink'>
+                                    Job listing link
+                                </label>
+
+                                <input
+                                    id='jobListingLink'
+                                    type='url'
+                                    placeholder='https://...'
+                                    name='Job listing link'
+                                    value={jobListingLink}
+                                    className={`form-control ${errors.jobListingLink ? 'is-invalid' : ''}`}
+                                    onChange={(e) => setJobListingLink(e.target.value)}
+                                />
+
+                                {errors.jobListingLink &&
+                                    <div className='invalid-feedback'>
+                                        {errors.jobListingLink}
                                     </div>
+                                }
+                            </div>
+                        </>
 
+                    )}
 
-                                    <div className='form-group mb-2'>
-
-                                        <label className='form-label'>
-                                            Job listing link
-                                        </label>
-
-                                        <input
-                                            type='url'
-                                            placeholder='Enter job listing link'
-                                            name='Job listing link'
-                                            value={jobListingLink}
-                                            className={`form-control ${errors.jobListingLink ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setJobListingLink(e.target.value)}
-                                        />
-
-                                        {errors.jobListingLink &&
-                                            <div className='invalid-feedback'>
-                                                {errors.jobListingLink}
-                                            </div>
-                                        }
-
-                                    </div>
-
-
-                                    <div className='form-group mb-2'>
-
-                                        <label className='form-label'>
-                                            Company phone number
-                                        </label>
-
-                                        <input
-                                            type='tel'
-                                            placeholder='Enter company phone number'
-                                            name='company phone number'
-                                            value={companyPhoneNumber}
-                                            className='form-control'
-                                            onChange={(e) => setCompanyPhoneNumber(e.target.value)}
-                                        />
-
-                                    </div>
-
-                                </>
-
-                            )}
-
-
-                            <button
-                                className='btn btn-success'
-                                onClick={saveJob}
-                            >
-
-                                {id ? 'Update status' : 'Submit'}
-
-                            </button>
-
-                        </form>
-
+                    <div className='form-actions'>
+                        <button className='btn btn-brand px-4' onClick={saveJob}>
+                            {id ? 'Update status' : 'Submit'}
+                        </button>
                     </div>
 
-                </div>
-
+                </form>
             </div>
-
         </div>
     )
 }

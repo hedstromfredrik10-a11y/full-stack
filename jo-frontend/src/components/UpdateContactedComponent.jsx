@@ -33,33 +33,33 @@ const UpdateContactedComponent = () => {
     }
 
     return (
-        <div className="card col-md-6 offset-md-3">
-            <br />
-            <div className="card-body">
-                <h2 className="text-center">
-                    Ändra kontakstatus
-                </h2>
+        <div className="container-fluid page page-wide">
+            <button className="btn btn-link btn-back" onClick={() => navigator('/overduejobs/getalljobsoverdue')}>
+                ← Tillbaka till listan
+            </button>
+
+            <div className="surface-card form-card">
+                <h1 className="form-card-title">Ändra kontaktstatus</h1>
+                <p className="form-card-subtitle">Har du hört av dig till företaget?</p>
+
                 <form>
-                    <div className="form-group mb-2">
-                        <label className="form-label">
+                    <div className="mb-3">
+                        <label className="form-label" htmlFor="contactedStatus">
                             Välj status
                         </label>
                         <select
-                            className="form-control"
+                            id="contactedStatus"
+                            className="form-select"
                             value={status}
                             onChange={(e) => setContactedStatus(e.target.value)}>
-                            <option value=''>
-                                Välj kontakstatus
-                            </option>
-                            <option value='Ja'>
-                                Ja
-                            </option>
-                            <option value='Nej'>
-                                Nej
-                            </option>
+                            <option value=''>Välj kontaktstatus</option>
+                            <option value='Ja'>Ja</option>
+                            <option value='Nej'>Nej</option>
                         </select>
-                        <br />
-                        <button className='btn btn-success' onClick={submitChange}>Submit</button>
+                    </div>
+
+                    <div className="form-actions">
+                        <button className='btn btn-brand px-4' onClick={submitChange}>Submit</button>
                     </div>
                 </form>
             </div>

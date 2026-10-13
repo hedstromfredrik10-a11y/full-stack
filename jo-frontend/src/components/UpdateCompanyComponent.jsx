@@ -21,29 +21,37 @@ const UpdateCompanyComponent = () => {
             .catch(error => {
                 console.error(error);
             });
-
-
     }
 
     return (
-        <div className='card col-md-6 offset-md-3'>
-            <h2 className='text-center'>Ändra företag</h2>
-            <div className='card-body'>
-                <div className='form-label'>
-                    <form>
+        <div className='container-fluid page page-wide'>
+            <button className='btn btn-link btn-back' onClick={() => navigator('/getalljobs')}>
+                ← Tillbaka till start
+            </button>
+
+            <div className='surface-card form-card'>
+                <h1 className='form-card-title'>Ändra företag</h1>
+                <p className='form-card-subtitle'>Ange det nya företagsnamnet för ansökan.</p>
+
+                <form>
+                    <div className='mb-3'>
+                        <label className='form-label' htmlFor='company'>Företag</label>
                         <input
+                            id='company'
                             type='text'
+                            className='form-control'
+                            placeholder='Företagsnamn'
                             value={company}
                             onChange={(e) => setCompany(e.target.value)}
-                        ></input>
-                        <button
-                            className='btn btn-success'
-                            onClick={save}
-                        >
+                        />
+                    </div>
+
+                    <div className='form-actions'>
+                        <button className='btn btn-brand px-4' onClick={save}>
                             Submit
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createJob, updateJobStatus, updateJobTitle } from '../services/JobService'
+import { createJob, updateJobStatus } from '../services/JobService'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const JobsComponent = () => {
@@ -84,178 +84,140 @@ const JobsComponent = () => {
     }
 
     return (
+        <div className='container-fluid page page-wide'>
+            <button className='btn btn-link btn-back' onClick={() => navigator('/getalljobs')}>
+                ← Tillbaka till start
+            </button>
 
-        <div className='container'>
+            <div className='surface-card form-card'>
+                <h1 className='form-card-title'>
+                    {id ? 'Uppdatera jobbstatus' : 'Lägg till ett nytt jobb'}
+                </h1>
+                <p className='form-card-subtitle'>
+                    {id ? 'Välj var i processen ansökan befinner sig.' : 'Fyll i uppgifterna om ansökan du har skickat.'}
+                </p>
 
-            <br />
-            <br />
+                <form>
 
-            <div className='row'>
+                    {id ? (
 
-                <div className='card col-md-6 offset-md-3'>
+                        <div className='mb-3'>
+                            <label className='form-label' htmlFor='jobStatus'>
+                                Job status
+                            </label>
 
-                    <h2 className='text-center'>
-                        {id ? 'Uppdatera jobbstatus' : 'Lägg till ett nytt jobb'}
-                    </h2>
+                            <select
+                                id='jobStatus'
+                                className='form-select'
+                                value={jobStatus}
+                                onChange={(e) => setJobStatus(e.target.value)}
+                            >
+                                <option value=''>Select status</option>
+                                <option value='APPLIED'>APPLIED</option>
+                                <option value='ACCEPTED'>ACCEPTED</option>
+                                <option value='REJECTED'>REJECTED</option>
+                                <option value='INTERVIEWING'>INTERVIEWING</option>
+                            </select>
+                        </div>
 
-                    <div className='card-body'>
+                    ) : (
 
-                        <form>
+                        <>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='company'>
+                                    Company
+                                </label>
 
+                                <input
+                                    id='company'
+                                    type='text'
+                                    placeholder='Enter company name'
+                                    name='company'
+                                    value={company}
+                                    className={`form-control ${errors.company ? 'is-invalid' : ''}`}
+                                    onChange={(e) => setCompany(e.target.value)}
+                                />
 
-                            {id ? (
+                                {errors.company &&
+                                    <div className='invalid-feedback'>
+                                        {errors.company}
+                                    </div>
+                                }
+                            </div>
 
-                                <div className='form-group mb-2'>
-
-                                    <label className='form-label'>
-                                        Job status
+                            <div className='row'>
+                                <div className='col-sm-6 mb-3'>
+                                    <label className='form-label' htmlFor='applicationDate'>
+                                        Application date
                                     </label>
 
-                                    <select
-                                        className='form-control'
-                                        value={jobStatus}
-                                        onChange={(e) => setJobStatus(e.target.value)}
-                                    >
+                                    <input
+                                        id='applicationDate'
+                                        type='date'
+                                        placeholder='Enter application date'
+                                        name='application date'
+                                        value={applicationDate}
+                                        className={`form-control ${errors.applicationDate ? 'is-invalid' : ''}`}
+                                        onChange={(e) => setApplicationDate(e.target.value)}
+                                    />
 
-                                        <option value=''>
-                                            Select status
-                                        </option>
-
-                                        <option value='APPLIED'>
-                                            APPLIED
-                                        </option>
-
-                                        <option value='ACCEPTED'>
-                                            ACCEPTED
-                                        </option>
-
-                                        <option value='REJECTED'>
-                                            REJECTED
-                                        </option>
-
-                                        <option value='INTERVIEWING'>
-                                            INTERVIEWING
-                                        </option>
-
-                                    </select>
-
+                                    {errors.applicationDate &&
+                                        <div className='invalid-feedback'>
+                                            {errors.applicationDate}
+                                        </div>
+                                    }
                                 </div>
 
-                            ) : (
+                                <div className='col-sm-6 mb-3'>
+                                    <label className='form-label' htmlFor='companyPhoneNumber'>
+                                        Company phone number
+                                    </label>
 
-                                <>
+                                    <input
+                                        id='companyPhoneNumber'
+                                        type='tel'
+                                        placeholder='Enter company phone number'
+                                        name='company phone number'
+                                        value={companyPhoneNumber}
+                                        className='form-control'
+                                        onChange={(e) => setCompanyPhoneNumber(e.target.value)}
+                                    />
+                                </div>
+                            </div>
 
-                                    <div className='form-group mb-2'>
+                            <div className='mb-3'>
+                                <label className='form-label' htmlFor='jobListingLink'>
+                                    Job listing link
+                                </label>
 
-                                        <label className='form-label'>
-                                            Company
-                                        </label>
+                                <input
+                                    id='jobListingLink'
+                                    type='url'
+                                    placeholder='https://...'
+                                    name='Job listing link'
+                                    value={jobListingLink}
+                                    className={`form-control ${errors.jobListingLink ? 'is-invalid' : ''}`}
+                                    onChange={(e) => setJobListingLink(e.target.value)}
+                                />
 
-                                        <input
-                                            type='text'
-                                            placeholder='Enter company name'
-                                            name='company'
-                                            value={company}
-                                            className={`form-control ${errors.company ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setCompany(e.target.value)}
-                                        />
-
-                                        {errors.company &&
-                                            <div className='invalid-feedback'>
-                                                {errors.company}
-                                            </div>
-                                        }
-
+                                {errors.jobListingLink &&
+                                    <div className='invalid-feedback'>
+                                        {errors.jobListingLink}
                                     </div>
+                                }
+                            </div>
+                        </>
 
+                    )}
 
-                                    <div className='form-group mb-2'>
-
-                                        <label className='form-label'>
-                                            Application date
-                                        </label>
-
-                                        <input
-                                            type='date'
-                                            placeholder='Enter application date'
-                                            name='application date'
-                                            value={applicationDate}
-                                            className={`form-control ${errors.applicationDate ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setApplicationDate(e.target.value)}
-                                        />
-
-                                        {errors.applicationDate &&
-                                            <div className='invalid-feedback'>
-                                                {errors.applicationDate}
-                                            </div>
-                                        }
-
-                                    </div>
-
-
-                                    <div className='form-group mb-2'>
-
-                                        <label className='form-label'>
-                                            Job listing link
-                                        </label>
-
-                                        <input
-                                            type='url'
-                                            placeholder='Enter job listing link'
-                                            name='Job listing link'
-                                            value={jobListingLink}
-                                            className={`form-control ${errors.jobListingLink ? 'is-invalid' : ''}`}
-                                            onChange={(e) => setJobListingLink(e.target.value)}
-                                        />
-
-                                        {errors.jobListingLink &&
-                                            <div className='invalid-feedback'>
-                                                {errors.jobListingLink}
-                                            </div>
-                                        }
-
-                                    </div>
-
-
-                                    <div className='form-group mb-2'>
-
-                                        <label className='form-label'>
-                                            Company phone number
-                                        </label>
-
-                                        <input
-                                            type='tel'
-                                            placeholder='Enter company phone number'
-                                            name='company phone number'
-                                            value={companyPhoneNumber}
-                                            className='form-control'
-                                            onChange={(e) => setCompanyPhoneNumber(e.target.value)}
-                                        />
-
-                                    </div>
-
-                                </>
-
-                            )}
-
-
-                            <button
-                                className='btn btn-success'
-                                onClick={saveJob}
-                            >
-
-                                {id ? 'Update status' : 'Submit'}
-
-                            </button>
-
-                        </form>
-
+                    <div className='form-actions'>
+                        <button className='btn btn-brand px-4' onClick={saveJob}>
+                            {id ? 'Update status' : 'Submit'}
+                        </button>
                     </div>
 
-                </div>
-
+                </form>
             </div>
-
         </div>
     )
 }

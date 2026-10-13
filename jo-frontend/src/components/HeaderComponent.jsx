@@ -1,15 +1,15 @@
 import React from 'react'
-// import './HeaderCSS.css'
 
 const HeaderComponent = () => {
     return (
-        <div>
-            <header className='header-component'>
-                <nav className='navbar navbar-dark bg-dark'>
-                    <a className="navbar-brand" href="https:/www.joborganizer.se">Job organizer</a>
-                </nav>
-            </header>
-        </div>
+        <header className='app-header'>
+            <div className='container-fluid page-wide'>
+                <a className='app-brand' href="https:/www.joborganizer.se">
+                    <span className='app-brand-icon' aria-hidden='true'>💼</span>
+                    Job organizer
+                </a>
+            </div>
+        </header>
     )
 }
 

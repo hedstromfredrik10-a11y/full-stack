@@ -21,16 +21,20 @@ const JobsOverdueComponent = () => {
             });
     }, []);
 
-    function updateContactedStatus(id) {
-        updateContacted(id, true)
-            .then((response) => {
-                console.log(response.data);
+    function toggleContactedStatus(id, currentStatus) {
+        const newStatus = !currentStatus;
+
+        updateContacted(id, newStatus)
+            .then(() => {
+                setJobsOverdue(prevJobs =>
+                    prevJobs.map(job =>
+                        job.id === id ? { ...job, contacted: newStatus } : job
+                    )
+                );
             })
             .catch(error => {
                 console.error(error);
             });
-
-        // navigator(`/overduejobs/updateContactedStatus/${id}`)
     }
 
     function backToStart() {
@@ -71,9 +75,9 @@ const JobsOverdueComponent = () => {
                                     <td>
                                         <button
                                             className="btn btn-secondary"
-                                            onClick={() => updateContactedStatus(job.id)}>
-                                            Ändra kontakstatus
-                                        </button>
+                                            onClick={() => toggleContactedStatus(job.id, job.contacted)}
+                                        >
+                                            {job.contacted ? "Markera som ej kontaktad" : "Markera som kontaktad"}                                        </button>
                                     </td>
                                 </tr>
                             )

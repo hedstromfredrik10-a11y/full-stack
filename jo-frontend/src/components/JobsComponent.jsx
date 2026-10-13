@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { createJob, updateJobStatus, updateJobTitle } from '../services/JobService'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { createJob, updateJobStatus } from '../services/JobService'
 
 const JobsComponent = () => {
 
@@ -25,6 +25,11 @@ const JobsComponent = () => {
         e.preventDefault();
 
         if (id) {
+            if (!jobStatus) {
+                setErrors({ ...errors, jobStatus: 'Please select a status' });
+                return;
+            }
+
             updateJobStatus(id, jobStatus)
                 .then((response) => {
                     console.log(response.data);
@@ -64,14 +69,14 @@ const JobsComponent = () => {
             valid = false;
         }
 
-        if (company.trim()) {
+        if (applicationDate) {
             errorsCopy.applicationDate = '';
         } else {
             errorsCopy.applicationDate = 'Application date is required';
             valid = false;
         }
 
-        if (company.trim()) {
+        if (jobListingLink.trim()) {
             errorsCopy.jobListingLink = '';
         } else {
             errorsCopy.jobListingLink = 'Job listing link is required';
@@ -112,7 +117,7 @@ const JobsComponent = () => {
                                     </label>
 
                                     <select
-                                        className='form-control'
+                                        className={`form-control' ${errors.jobStatus ? 'is-invalid' : ''}`}
                                         value={jobStatus}
                                         onChange={(e) => setJobStatus(e.target.value)}
                                     >
@@ -138,6 +143,12 @@ const JobsComponent = () => {
                                         </option>
 
                                     </select>
+
+                                    {errors.jobStatus &&
+                                        <div className='invalid-feedback'>
+                                            {errors.jobStatus}
+                                        </div>
+                                    }
 
                                 </div>
 
